@@ -1,5 +1,11 @@
-dev:
+up:
 	docker compose up
+
+stop:
+	docker compose stop
+
+build:
+	docker compose build
 
 test:
 	docker compose exec backend pytest -v --cov-report term-missing --cov-fail-under=100 --cov=.
