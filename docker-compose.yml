@@ -29,7 +29,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      - ALLOWED_HOSTS=
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - DJANGO_SECRET_KEY
       - DEBUG
       - TESTING
