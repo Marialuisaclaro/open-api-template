@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+  db:
+    container_name: template-openapi-db
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - template-openapi-db:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U $DB_USER -d $DB_NAME
+      interval: 5s
+      timeout: 2s
+      retries: 10
+
+  backend:
+    container_name: template-openapi
+    depends_on:
+      db:
+        condition: service_healthy
+    build: .
+    # entrypoint: "tail -F /dev/null"
+    stdin_open: true
+    volumes:
+      - ./src:/src
+    ports:
+      - 8000:8000
+    environment:
+      - ALLOWED_HOSTS=
+      - DJANGO_SECRET_KEY
+      - DEBUG
+      - TESTING
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
+
+volumes:
+  template-openapi-db:

@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "backend-template"
+version = "0.1.0"
+description = "A template for writing OpenAPI-compliant backends"
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1"
+django-ninja = "^0.20.0"
+pydantic = "^1.10.5"
+psycopg2 = "^2.9.5"
+uvicorn = "^0.20.0"
+django-pagination = "^1.0.7"
+django-environ = "^0.9.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+ruff = "^0.0.261"
+ipython = "^8.10.0"
+ipdb = "^0.13.11"
+pytest-django = "^4.5.2"
+django-extensions = "^3.2.1"
+pytest-cov = "^4.0.0"
+factory-boy = "^3.2.1"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "conf.settings"
+python_files = "tests.py test_*.py *_tests.py"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+target-version = "py310"
+exclude = ['migrations']
